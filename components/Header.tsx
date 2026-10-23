@@ -32,7 +32,7 @@ export default function Header() {
           block: "start",
         });
       }
-    }, 150);
+    }, 250);
   };
 
   useEffect(() => {
@@ -166,12 +166,12 @@ export default function Header() {
             >
               <motion.span
                 animate={isOpen ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }}
-                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute w-7 h-[2.5px] bg-text-primary rounded-full origin-center"
               />
               <motion.span
                 animate={isOpen ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }}
-                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute w-7 h-[2.5px] bg-text-primary rounded-full origin-center"
               />
             </button>
@@ -179,65 +179,74 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Fullscreen Overlay Menu with smooth physics */}
+      {/* Fullscreen Overlay Menu with smooth top-to-bottom slide */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -15, scale: 0.99 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -15, scale: 0.99 }}
-            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ y: "-100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-100%" }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-0 z-40 bg-background/98 backdrop-blur-3xl text-text-primary flex flex-col justify-between pt-28 pb-8 px-6 md:px-12 overflow-y-auto"
           >
-            {/* Center: Numbered Menu Items */}
+            {/* Center: Numbered Menu Items with horizontal cascading transition */}
             <div className="my-auto py-8 flex flex-col items-center justify-center w-full">
-              <div className="flex flex-col items-center gap-4 md:gap-6">
+              <div className="flex flex-col items-center w-full max-w-xl">
                 {navItems.map((item, index) => (
                   <motion.button
                     key={item.num}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 15 }}
+                    initial={{ opacity: 0, x: -60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -30 }}
                     transition={{
-                      delay: index * 0.05 + 0.1,
-                      duration: 1.5,
+                      delay: index * 0.08 + 0.2,
+                      duration: 0.6,
                       ease: [0.22, 1, 0.36, 1],
                     }}
                     onClick={() => handleScroll(item.link)}
-                    className="group flex items-baseline gap-3 md:gap-4 cursor-pointer focus:outline-none transition-transform duration-300 hover:scale-105"
+                    className="group relative flex items-baseline justify-between w-full py-4 md:py-5 border-b border-text-secondary/10 cursor-pointer focus:outline-none transition-all duration-300 hover:pl-3"
                   >
-                    <span className="text-text-secondary/60 group-hover:text-text-primary font-mono text-xs md:text-sm font-bold tracking-wider select-none transition-colors duration-200">
-                      {item.num}
-                    </span>
-                    <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-text-primary group-hover:text-text-secondary transition-colors duration-200">
-                      {item.name}
+                    <div className="flex items-baseline gap-4 md:gap-6">
+                      <span className="text-text-secondary/60 group-hover:text-text-primary font-mono text-xs md:text-sm font-bold tracking-widest select-none transition-colors duration-200">
+                        {item.num}
+                      </span>
+                      <span className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight text-text-primary group-hover:text-text-secondary transition-colors duration-200">
+                        {item.name}
+                      </span>
+                    </div>
+
+                    <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-text-secondary opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 flex items-center gap-2">
+                      <span className="hidden sm:inline">Explore</span>
+                      <svg
+                        className="w-4 h-4 md:w-5 md:h-5 text-text-primary"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2.5"
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
                     </span>
                   </motion.button>
                 ))}
               </div>
-
-              {/* Pill Button "GET IN TOUCH" */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{
-                  delay: navItems.length * 0.05 + 0.15,
-                  duration: 0.45,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="mt-10 md:mt-14"
-              ></motion.div>
             </div>
 
             {/* Bottom Note */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ delay: 0.3, duration: 0.3 }}
-              className="max-w-7xl mx-auto w-full flex justify-between items-center text-xs font-medium text-text-secondary/60 pt-4"
-            ></motion.div>
+              transition={{ delay: 0.55, duration: 0.4 }}
+              className="max-w-xl mx-auto w-full flex justify-between items-center text-xs font-bold uppercase tracking-widest text-text-secondary/60 pt-4"
+            >
+              <span>Phnom Penh, Cambodia</span>
+              <span className="lowercase">seanpheavyraksonya@gmail.com</span>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

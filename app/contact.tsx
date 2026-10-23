@@ -14,19 +14,60 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
         <FadeDown delay={0.2}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Google Maps Embed */}
-            <div className="bg-background border border-text-secondary/20 rounded-3xl overflow-hidden h-[400px] lg:h-auto min-h-[400px] shadow-xl hover:border-text-primary transition-colors duration-500 relative group">
-              <div className="absolute top-4 left-4 z-10 bg-background/90 backdrop-blur-md px-4 py-2 rounded-xl border border-text-secondary/20 shadow-lg pointer-events-none">
-                <p className="text-sm font-bold text-text-primary">📍 Phnom Penh | Cambodia</p>
-                <p className="text-xs font-medium text-text-secondary">Sen Sok</p>
+            {/* Minimal Typography Collaboration Card */}
+            <div className="bg-background border border-text-secondary/20 rounded-3xl p-8 sm:p-10 lg:p-12 flex flex-col justify-between shadow-xl relative overflow-hidden group hover:border-text-primary/50 transition-colors duration-500 min-h-[420px] h-full">
+              {/* Subtle background glow accent */}
+              <div className="absolute top-0 right-0 w-72 h-72 bg-text-secondary/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+
+              <div>
+                {/* Availability Indicator */}
+                <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 mb-8">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-xs font-bold uppercase tracking-widest">
+                    Available for Opportunities
+                  </span>
+                </div>
+
+                {/* Heading */}
+                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-text-primary tracking-tight leading-[1.15] mb-6">
+                  Let&apos;s build something great together.
+                </h3>
+
+                {/* Short Collaboration Message */}
+                <p className="text-base text-text-secondary font-medium leading-relaxed max-w-lg">
+                  Have an exciting project, a frontend role, or a new idea to bring to life? I&apos;m always open to discussing new opportunities, collaborations, or simply sharing thoughts on modern web tech.
+                </p>
               </div>
-              <iframe
-                src="https://mmaps.google.com/maps?q=-2.9843272,104.7208314&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                className="w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-700"
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
+
+              {/* Call to Action: Let's talk */}
+              <div className="pt-8 mt-8 border-t border-text-secondary/10 flex items-center justify-between gap-4">
+                <a
+                  href="mailto:seanpheavyraksonya@gmail.com"
+                  className="group/btn inline-flex items-center gap-3 text-sm md:text-base font-bold uppercase tracking-wider bg-text-primary text-background px-7 py-4 rounded-xl hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
+                >
+                  <span>Let&apos;s talk</span>
+                  <svg
+                    className="w-4 h-4 transform group-hover/btn:translate-x-1.5 transition-transform duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2.5"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </a>
+
+                <span className="text-xs font-bold uppercase tracking-widest text-text-secondary/60 hidden sm:inline-block">
+                  Phnom Penh, Cambodia
+                </span>
+              </div>
             </div>
 
             {/* Social Links Cards */}
@@ -48,7 +89,7 @@ export default function Contact() {
               </a>
 
               {/* Email */}
-              <a href="seanpheavyraksonya@gmail.com" target="_blank" rel="noopener noreferrer" className="group bg-background border border-text-secondary/20 rounded-2xl p-4 sm:p-6 flex items-center justify-center sm:justify-between hover:border-text-primary hover:bg-text-secondary/5 transition-all duration-300 shadow-sm hover:shadow-md aspect-square sm:aspect-auto">
+              <a href="mailto:seanpheavyraksonya@gmail.com" target="_blank" rel="noopener noreferrer" className="group bg-background border border-text-secondary/20 rounded-2xl p-4 sm:p-6 flex items-center justify-center sm:justify-between hover:border-text-primary hover:bg-text-secondary/5 transition-all duration-300 shadow-sm hover:shadow-md aspect-square sm:aspect-auto">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-text-secondary/10 flex items-center justify-center text-text-primary group-hover:text-text-primary group-hover:scale-110 transition-transform duration-300">
                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
