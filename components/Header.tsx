@@ -1,11 +1,11 @@
-"use client"
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
+"use client";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 interface NavItem {
-  num: string
-  name: string
-  link: string
+  num: string;
+  name: string;
+  link: string;
 }
 
 const navItems: NavItem[] = [
@@ -14,74 +14,78 @@ const navItems: NavItem[] = [
   { num: "03", name: "TECH STACK", link: "techstack" },
   { num: "04", name: "EXPERIENCE", link: "experience" },
   { num: "05", name: "SELECTED WORK", link: "projects" },
-]
+];
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isDark, setIsDark] = useState(false)
-  const [mounted, setMounted] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const handleScroll = (id: string) => {
-    setIsOpen(false)
+    setIsOpen(false);
     // Small timeout ensures the smooth exit animation starts before scrolling
     setTimeout(() => {
-      const section = document.getElementById(id)
+      const section = document.getElementById(id);
       if (section) {
         section.scrollIntoView({
           behavior: "smooth",
           block: "start",
-        })
+        });
       }
-    }, 150)
-  }
+    }, 150);
+  };
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true)
+    setMounted(true);
 
-    const savedTheme = typeof window !== "undefined" ? localStorage.getItem("theme") : null
-    const prefersDark = typeof window !== "undefined" ? window.matchMedia("(prefers-color-scheme: dark)").matches : false
+    const savedTheme =
+      typeof window !== "undefined" ? localStorage.getItem("theme") : null;
+    const prefersDark =
+      typeof window !== "undefined"
+        ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        : false;
 
-    const shouldBeDark = savedTheme === "dark" || (!savedTheme && prefersDark)
-    setIsDark(shouldBeDark)
+    const shouldBeDark = savedTheme === "dark" || (!savedTheme && prefersDark);
+    setIsDark(shouldBeDark);
 
     if (typeof window !== "undefined") {
-      document.documentElement.classList.toggle("dark", shouldBeDark)
+      document.documentElement.classList.toggle("dark", shouldBeDark);
     }
-  }, [])
+  }, []);
 
   const toggleTheme = () => {
-    const newTheme = !isDark
-    setIsDark(newTheme)
+    const newTheme = !isDark;
+    setIsDark(newTheme);
 
     if (typeof window !== "undefined") {
-      localStorage.setItem("theme", newTheme ? "dark" : "light")
-      document.documentElement.classList.toggle("dark", newTheme)
+      localStorage.setItem("theme", newTheme ? "dark" : "light");
+      document.documentElement.classList.toggle("dark", newTheme);
     }
-  }
+  };
 
   // Lock body scroll when overlay is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden"
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset"
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = "unset"
-    }
-  }, [isOpen])
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   // Close on Escape key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setIsOpen(false)
+        setIsOpen(false);
       }
-    }
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [])
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <>
@@ -102,14 +106,14 @@ export default function Header() {
           >
             <span className="text-xl md:text-2xl font-black text-text-primary tracking-tighter hover:opacity-80 transition-opacity">
               <Image
-                src="/images/logo.png"
+                src={isDark ? "/images/logo.png" : "/images/darkmode_logo.png"}
                 alt="logo"
                 width={40}
                 height={40}
-                className="w-10 h-10 object-contain invert dark:invert-0 transition-[filter] duration-300"
+                className="w-10 h-10 object-contain"
                 priority
               />
-            </span>       
+            </span>
           </button>
 
           {/* Right Controls: Theme Toggle & Animated Hamburger/Close Button */}
@@ -121,12 +125,32 @@ export default function Header() {
                 aria-label="Toggle Theme"
               >
                 {isDark ? (
-                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 21a9 9 0 0 1-.5-17.986V3c-.354.966-.5 1.911-.5 3a9 9 0 0 0 9 9c.239 0 .254.018.488 0A9.004 9.004 0 0 1 12 21Z" />
+                  <svg
+                    className="w-5 h-5 md:w-6 md:h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 21a9 9 0 0 1-.5-17.986V3c-.354.966-.5 1.911-.5 3a9 9 0 0 0 9 9c.239 0 .254.018.488 0A9.004 9.004 0 0 1 12 21Z"
+                    />
                   </svg>
                 ) : (
-                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 5V3m0 18v-2M7.05 7.05 5.636 5.636m12.728 12.728L16.95 16.95M5 12H3m18 0h-2M7.05 16.95l-1.414 1.414M18.364 5.636 16.95 7.05M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" />
+                  <svg
+                    className="w-5 h-5 md:w-6 md:h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 5V3m0 18v-2M7.05 7.05 5.636 5.636m12.728 12.728L16.95 16.95M5 12H3m18 0h-2M7.05 16.95l-1.414 1.414M18.364 5.636 16.95 7.05M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"
+                    />
                   </svg>
                 )}
               </button>
@@ -136,23 +160,17 @@ export default function Header() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="relative flex flex-col justify-center items-center w-10 h-10 cursor-pointer focus:outline-none p-1 group"
-              aria-label={isOpen ? "Close Navigation Menu" : "Open Navigation Menu"}
+              aria-label={
+                isOpen ? "Close Navigation Menu" : "Open Navigation Menu"
+              }
             >
               <motion.span
-                animate={
-                  isOpen
-                    ? { rotate: 45, y: 0 }
-                    : { rotate: 0, y: -4 }
-                }
+                animate={isOpen ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }}
                 transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute w-7 h-[2.5px] bg-text-primary rounded-full origin-center"
               />
               <motion.span
-                animate={
-                  isOpen
-                    ? { rotate: -45, y: 0 }
-                    : { rotate: 0, y: 4 }
-                }
+                animate={isOpen ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }}
                 transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute w-7 h-[2.5px] bg-text-primary rounded-full origin-center"
               />
@@ -209,9 +227,7 @@ export default function Header() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
                 className="mt-10 md:mt-14"
-              >
-        
-              </motion.div>
+              ></motion.div>
             </div>
 
             {/* Bottom Note */}
@@ -221,12 +237,10 @@ export default function Header() {
               exit={{ opacity: 0 }}
               transition={{ delay: 0.3, duration: 0.3 }}
               className="max-w-7xl mx-auto w-full flex justify-between items-center text-xs font-medium text-text-secondary/60 pt-4"
-            >
-           
-            </motion.div>
+            ></motion.div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
-  )
+  );
 }

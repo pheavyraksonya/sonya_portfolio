@@ -43,9 +43,12 @@ export const metadata: Metadata = {
     creator: "@Sonya",
   },
   icons: {
-    icon: "/images/logo.png",
-    shortcut: "/images/logo.png",
-    apple: "/images/logo.png",
+    icon: [
+      { url: "/images/dark_logo.png", media: "(prefers-color-scheme: light)" },
+      { url: "/images/logo.png", media: "(prefers-color-scheme: dark)" },
+    ],
+    shortcut: "/images/dark_logo.png",
+    apple: "/images/dark_logo.png",
   },
   alternates: {
     canonical: "/",
